@@ -61,21 +61,14 @@ export default class SortingVisualizer extends React.Component {
   } */
 
   bubbleSort() {
-    const animations = bubbleSortAnimations(this.state.array);
-    const newAnimations = [];
-    for (const animation of animations) {
-      newAnimations.push(animation.index);
-      newAnimations.push(animation.index);
-      newAnimations.push(animation.swap);
-    }
+    const Animations = bubbleSortAnimations(this.state.array);
 
-    for (let i = 0; i < newAnimations.length; i++) {
+    for (let i = 0; i < Animations.length; i++) {
       const arrayBars = document.getElementsByClassName('array-bars');
-      console.log(newAnimations[i]);
-      if (newAnimations[i] == '') {
+      if (Animations[i] == '') {
         continue;
       }
-      let [barOneIdx, barTwoIdx] = newAnimations[i];
+      let [barOneIdx, barTwoIdx] = Animations[i];
       let barOneStyle = arrayBars[barOneIdx].style;
       let barTwoStyle = arrayBars[barTwoIdx].style;
       const colorChange = i % 3 !== 2;
@@ -89,7 +82,7 @@ export default class SortingVisualizer extends React.Component {
       } else {
         setTimeout(() => {
           if (i % 3 !== 1) {
-            let [barOneIdxSwap, barTwoIdxSwap] = newAnimations[i];
+            let [barOneIdxSwap, barTwoIdxSwap] = Animations[i];
             let barOneStyle = arrayBars[barOneIdxSwap].style.height;
             let barTwoStyle = arrayBars[barTwoIdxSwap].style.height;
             arrayBars[barOneIdxSwap].style.height = barTwoStyle;
