@@ -49,6 +49,26 @@ export function insertionSortAnimations(array) {
   return animations;
 }
 
+export function selectionSortAnimations(array) {
+  let animations = [];
+  let startIdx = 0;
+  while (startIdx < array.length - 1) {
+    let smallestIdx = startIdx;
+    animations.push([startIdx, smallestIdx]);
+    animations.push([startIdx, smallestIdx]);
+
+    for (let i = startIdx + 1; i < array.length; i++) {
+      if (array[smallestIdx] > array[i]) smallestIdx = i;
+    }
+    swap(startIdx, smallestIdx, array);
+    animations.push([startIdx, smallestIdx]);
+    startIdx++;
+  }
+  return animations;
+}
+
+export function quickSortAnimations(array) {}
+
 function swap(i, j, array) {
   const temp = array[j];
   array[j] = array[i];
