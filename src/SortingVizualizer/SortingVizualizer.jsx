@@ -41,105 +41,7 @@ export default class SortingVisualizer extends React.Component {
     this.setState({ array });
   }
 
-  bubbleSort() {
-    const Animations = bubbleSortAnimations(this.state.array);
-
-    for (let i = 0; i < Animations.length; i++) {
-      const arrayBars = document.getElementsByClassName('array-bars');
-      if (Animations[i] == '') {
-        continue;
-      }
-      let [barOneIdx, barTwoIdx] = Animations[i];
-      let barOneStyle = arrayBars[barOneIdx].style;
-      let barTwoStyle = arrayBars[barTwoIdx].style;
-      const colorChange = i % 3 !== 2;
-
-      if (colorChange) {
-        const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
-        setTimeout(() => {
-          barOneStyle.backgroundColor = color;
-          barTwoStyle.backgroundColor = color;
-        }, i * ANIMATION_SPEED_MS);
-      } else {
-        setTimeout(() => {
-          if (i % 3 !== 1) {
-            let [barOneIdxSwap, barTwoIdxSwap] = Animations[i];
-            let barOneStyle = arrayBars[barOneIdxSwap].style.height;
-            let barTwoStyle = arrayBars[barTwoIdxSwap].style.height;
-            arrayBars[barOneIdxSwap].style.height = barTwoStyle;
-            arrayBars[barTwoIdxSwap].style.height = barOneStyle;
-          }
-        }, i * ANIMATION_SPEED_MS);
-      }
-    }
-  }
-
-  insertionSort() {
-    const Animations = insertionSortAnimations(this.state.array);
-    for (let i = 0; i < Animations.length; i++) {
-      const arrayBars = document.getElementsByClassName('array-bars');
-      if (Animations[i] == '') {
-        continue;
-      }
-      let [barOneIdx, barTwoIdx] = Animations[i];
-      let barOneStyle = arrayBars[barOneIdx].style;
-      let barTwoStyle = arrayBars[barTwoIdx].style;
-      const colorChange = i % 3 !== 2;
-
-      if (colorChange) {
-        const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
-        setTimeout(() => {
-          barOneStyle.backgroundColor = color;
-          barTwoStyle.backgroundColor = color;
-        }, i * ANIMATION_SPEED_MS);
-      } else {
-        setTimeout(() => {
-          if (i % 3 !== 1) {
-            let [barOneIdxSwap, barTwoIdxSwap] = Animations[i];
-            let barOneStyle = arrayBars[barOneIdxSwap].style.height;
-            let barTwoStyle = arrayBars[barTwoIdxSwap].style.height;
-            arrayBars[barOneIdxSwap].style.height = barTwoStyle;
-            arrayBars[barTwoIdxSwap].style.height = barOneStyle;
-          }
-        }, i * ANIMATION_SPEED_MS);
-      }
-    }
-  }
-
-  selectionSort() {
-    const Animations = selectionSortAnimations(this.state.array);
-    for (let i = 0; i < Animations.length; i++) {
-      const arrayBars = document.getElementsByClassName('array-bars');
-      if (Animations[i] == '') {
-        continue;
-      }
-      let [barOneIdx, barTwoIdx] = Animations[i];
-      let barOneStyle = arrayBars[barOneIdx].style;
-      let barTwoStyle = arrayBars[barTwoIdx].style;
-      const colorChange = i % 3 !== 2;
-
-      if (colorChange) {
-        const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
-        setTimeout(() => {
-          barOneStyle.backgroundColor = color;
-          barTwoStyle.backgroundColor = color;
-        }, i * ANIMATION_SPEED_MS);
-      } else {
-        setTimeout(() => {
-          if (i % 3 !== 1) {
-            let [barOneIdxSwap, barTwoIdxSwap] = Animations[i];
-            let barOneStyle = arrayBars[barOneIdxSwap].style.height;
-            let barTwoStyle = arrayBars[barTwoIdxSwap].style.height;
-            arrayBars[barOneIdxSwap].style.height = barTwoStyle;
-            arrayBars[barTwoIdxSwap].style.height = barOneStyle;
-          }
-        }, i * ANIMATION_SPEED_MS);
-      }
-    }
-  }
-
-  heapSort() {
-    const Animations = heapSortAnimations(this.state.array);
+  sortingAnimations(Animations) {
     for (let i = 0; i < Animations.length; i++) {
       const arrayBars = document.getElementsByClassName('array-bars');
       if (Animations[i] == '') {
@@ -169,6 +71,26 @@ export default class SortingVisualizer extends React.Component {
         }, i * ANIMATION_SPEED_MS);
       }
     }
+  }
+
+  bubbleSort() {
+    const Animations = bubbleSortAnimations(this.state.array);
+    this.sortingAnimations(Animations);
+  }
+
+  insertionSort() {
+    const Animations = insertionSortAnimations(this.state.array);
+    this.sortingAnimations(Animations);
+  }
+
+  selectionSort() {
+    const Animations = selectionSortAnimations(this.state.array);
+    this.sortingAnimations(Animations);
+  }
+
+  heapSort() {
+    const Animations = heapSortAnimations(this.state.array);
+    this.sortingAnimations(Animations);
   }
 
   render() {
