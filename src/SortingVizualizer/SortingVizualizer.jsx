@@ -15,7 +15,8 @@ export default class SortingVisualizer extends React.Component {
     super(props);
 
     this.state = {
-      array: []
+      array: [],
+      disabled: false
     };
   }
 
@@ -41,7 +42,11 @@ export default class SortingVisualizer extends React.Component {
     this.setState({ array });
   }
 
-  sortingAnimations(Animations) {
+  delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async sortingAnimations(Animations) {
     for (let i = 0; i < Animations.length; i++) {
       const arrayBars = document.getElementsByClassName('array-bars');
       if (Animations[i] == '') {
@@ -86,9 +91,10 @@ export default class SortingVisualizer extends React.Component {
     }
   }
 
-  bubbleSort() {
+  async bubbleSort() {
     const Animations = bubbleSortAnimations(this.state.array);
-    this.sortingAnimations(Animations);
+    await this.sortingAnimations(Animations);
+    this.setState({ disabled: false });
   }
 
   insertionSort() {
@@ -106,6 +112,10 @@ export default class SortingVisualizer extends React.Component {
     this.sortingAnimations(Animations);
   }
 
+  test() {
+    this.setState({ disabled: !this.state.disabled });
+  }
+
   render() {
     const { array } = this.state;
 
@@ -119,11 +129,17 @@ export default class SortingVisualizer extends React.Component {
           ></div>
         ))}
         <div>
-          <button onClick={() => this.resetArray()}>Generate New Array</button>
+          <button
+            onClick={() => this.resetArray()}
+            disabled={this.state.disabled}
+          >
+            Generate New Array
+          </button>
           <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
           <button onClick={() => this.insertionSort()}>Insertion Sort</button>
           <button onClick={() => this.selectionSort()}>Selection Sort</button>
           <button onClick={() => this.heapSort()}>Heap Sort</button>
+          <button onClick={() => this.test()}>test</button>
         </div>
       </div>
     );
