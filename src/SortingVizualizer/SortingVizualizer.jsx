@@ -6,7 +6,7 @@ import {
   selectionSortAnimations,
   heapSortAnimations
 } from '../Algorithms/SortingAlgorithms.js';
-const ANIMATION_SPEED_MS = 5;
+const ANIMATION_SPEED_MS = 1;
 const PRIMARY_COLOR = 'pink';
 const SECONDARY_COLOR = 'red';
 
@@ -16,7 +16,8 @@ export default class SortingVisualizer extends React.Component {
 
     this.state = {
       array: [],
-      disabled: false
+      disabled: false,
+      resetDisable: false
     };
   }
 
@@ -38,8 +39,8 @@ export default class SortingVisualizer extends React.Component {
         arrayBars[i].style.backgroundColor = 'pink';
       }
     }
-
     this.setState({ array });
+    this.setState({ disabled: false });
   }
 
   sortingAnimations(Animations) {
@@ -91,40 +92,29 @@ export default class SortingVisualizer extends React.Component {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  async bubbleSort() {
+  async disableButtons(func) {
+    this.setState({ resetDisable: true });
     this.setState({ disabled: true });
-
-    const Animations = bubbleSortAnimations(this.state.array);
-    this.sortingAnimations(Animations);
-    await this.delay(Animations.length * ANIMATION_SPEED_MS);
-    this.setState({ disabled: false });
+    let sort = func(this.state.array);
+    this.sortingAnimations(sort);
+    await this.delay(sort.length * ANIMATION_SPEED_MS);
+    this.setState({ resetDisable: false });
   }
 
-  async insertionSort() {
-    this.setState({ disabled: true });
-
-    const Animations = insertionSortAnimations(this.state.array);
-    this.sortingAnimations(Animations);
-    await this.delay(Animations.length * ANIMATION_SPEED_MS);
-    this.setState({ disabled: false });
+  bubbleSort() {
+    this.disableButtons(bubbleSortAnimations);
   }
 
-  async selectionSort() {
-    this.setState({ disabled: true });
-
-    const Animations = selectionSortAnimations(this.state.array);
-    this.sortingAnimations(Animations);
-    await this.delay(Animations.length * ANIMATION_SPEED_MS);
-    this.setState({ disabled: false });
+  insertionSort() {
+    this.disableButtons(insertionSortAnimations);
   }
 
-  async heapSort() {
-    this.setState({ disabled: true });
+  selectionSort() {
+    this.disableButtons(selectionSortAnimations);
+  }
 
-    const Animations = heapSortAnimations(this.state.array);
-    this.sortingAnimations(Animations);
-    await this.delay(Animations.length * ANIMATION_SPEED_MS);
-    this.setState({ disabled: false });
+  heapSort() {
+    this.disableButtons(heapSortAnimations);
   }
 
   render() {
@@ -137,7 +127,7 @@ export default class SortingVisualizer extends React.Component {
           <nav>
             <button
               onClick={() => this.resetArray()}
-              disabled={this.state.disabled}
+              disabled={this.state.resetDisable}
             >
               Generate New Array
             </button>

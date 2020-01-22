@@ -18,6 +18,21 @@ nav {
 }
 
 button {
+  color: #0099cc;
   margin-left: 2px;
   margin-right: 2px;
+  border: 2px solid #0099cc;
+  border-radius: 6px;
+  background: transparent;
+}
+
+button:hover {
+  background-color: #008cba;
+  color: white;
+}
+
+button:disabled {
+  background-color: grey;
+  color: lightgrey;
+  border: 2px solid lightgrey;
 }

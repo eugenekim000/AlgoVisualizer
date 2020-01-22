@@ -22,6 +22,29 @@ export function bubbleSortAnimations(array) {
   return animations;
 }
 
+/* export function bubbleSortAnimations(array) {
+  let animations = [];
+  let sorted = false;
+  let counter = 0;
+
+  while (!sorted) {
+    sorted = true;
+    for (let i = 0; i < array.length - 1 - counter; i++) {
+      animations.push([i, i + 1]);
+      animations.push([i, i + 1]);
+      if (array[i] > array[i + 1]) {
+        swap(i, i + 1, array);
+        sorted = false;
+        animations.push([i, i + 1]);
+      } else {
+        animations.push([]);
+      }
+    }
+    counter++;
+  }
+  return animations;
+} */
+
 export function insertionSortAnimations(array) {
   let animations = [];
   let auxArray = array.slice();
