@@ -2,14 +2,15 @@ export function bubbleSortAnimations(array) {
   let animations = [];
   let sorted = false;
   let counter = 0;
+  let auxArray = array.slice();
 
   while (!sorted) {
     sorted = true;
-    for (let i = 0; i < array.length - 1 - counter; i++) {
+    for (let i = 0; i < auxArray.length - 1 - counter; i++) {
       animations.push([i, i + 1]);
       animations.push([i, i + 1]);
-      if (array[i] > array[i + 1]) {
-        swap(i, i + 1, array);
+      if (auxArray[i] > auxArray[i + 1]) {
+        swap(i, i + 1, auxArray);
         sorted = false;
         animations.push([i, i + 1]);
       } else {

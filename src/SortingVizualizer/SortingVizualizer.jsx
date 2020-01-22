@@ -42,11 +42,7 @@ export default class SortingVisualizer extends React.Component {
     this.setState({ array });
   }
 
-  delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  async sortingAnimations(Animations) {
+  sortingAnimations(Animations) {
     for (let i = 0; i < Animations.length; i++) {
       const arrayBars = document.getElementsByClassName('array-bars');
       if (Animations[i] == '') {
@@ -91,9 +87,17 @@ export default class SortingVisualizer extends React.Component {
     }
   }
 
+  delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   async bubbleSort() {
+    this.setState({ disabled: true });
+
     const Animations = bubbleSortAnimations(this.state.array);
-    await this.sortingAnimations(Animations);
+    console.log(Animations);
+    this.sortingAnimations(Animations);
+    await this.delay(Animations.length * ANIMATION_SPEED_MS);
     this.setState({ disabled: false });
   }
 
@@ -121,6 +125,23 @@ export default class SortingVisualizer extends React.Component {
 
     return (
       <div className='array-container'>
+        <div>
+          <h1>Sorting Visualizer!</h1>
+          <nav>
+            <button
+              onClick={() => this.resetArray()}
+              disabled={this.state.disabled}
+            >
+              Generate New Array
+            </button>
+            <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
+            <button onClick={() => this.insertionSort()}>Insertion Sort</button>
+            <button onClick={() => this.selectionSort()}>Selection Sort</button>
+            <button onClick={() => this.heapSort()}>Heap Sort</button>
+            <button onClick={() => this.test()}>test</button>
+          </nav>
+        </div>
+
         {array.map((value, idx) => (
           <div
             className='array-bars'
@@ -128,19 +149,6 @@ export default class SortingVisualizer extends React.Component {
             style={{ height: `${value}px` }}
           ></div>
         ))}
-        <div>
-          <button
-            onClick={() => this.resetArray()}
-            disabled={this.state.disabled}
-          >
-            Generate New Array
-          </button>
-          <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
-          <button onClick={() => this.insertionSort()}>Insertion Sort</button>
-          <button onClick={() => this.selectionSort()}>Selection Sort</button>
-          <button onClick={() => this.heapSort()}>Heap Sort</button>
-          <button onClick={() => this.test()}>test</button>
-        </div>
       </div>
     );
   }

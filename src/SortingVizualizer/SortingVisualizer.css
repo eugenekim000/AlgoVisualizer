@@ -1,12 +1,23 @@
 .array-bars {
-  width: 2px;
+  width: 4px;
   background-color: pink;
   display: inline-block;
-  margin: 0 1px;
+  margin: 0 2px;
 }
 
 .array-container {
   position: absolute;
   left: 100px;
   top: 100px;
+}
+
+nav {
+  margin-bottom: 30px;
+  padding: 0;
+  display: block;
+}
+
+button {
+  margin-left: 2px;
+  margin-right: 2px;
 }
