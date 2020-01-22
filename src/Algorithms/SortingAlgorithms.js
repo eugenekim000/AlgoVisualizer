@@ -24,13 +24,15 @@ export function bubbleSortAnimations(array) {
 
 export function insertionSortAnimations(array) {
   let animations = [];
-  for (let i = 1; i < array.length; i++) {
+  let auxArray = array.slice();
+
+  for (let i = 1; i < auxArray.length; i++) {
     let j = i;
-    if (j > 0 && array[j] < array[j - 1]) {
-      while (j > 0 && array[j] < array[j - 1]) {
+    if (j > 0 && auxArray[j] < auxArray[j - 1]) {
+      while (j > 0 && auxArray[j] < auxArray[j - 1]) {
         animations.push([j, j - 1]);
         animations.push([j, j - 1]);
-        swap(j, j - 1, array);
+        swap(j, j - 1, auxArray);
         animations.push([j, j - 1]);
         j -= 1;
       }
@@ -50,24 +52,26 @@ export function insertionSortAnimations(array) {
 }
 
 export function selectionSortAnimations(array) {
+  let auxArray = array.slice();
+
   let animations = [];
   let startIdx = 0;
-  while (startIdx < array.length - 1) {
+  while (startIdx < auxArray.length - 1) {
     let smallestIdx = startIdx;
 
-    for (let i = startIdx + 1; i < array.length; i++) {
+    for (let i = startIdx + 1; i < auxArray.length; i++) {
       animations.push([startIdx, i]);
       animations.push([startIdx, i]);
       animations.push([]);
 
-      if (array[smallestIdx] > array[i]) {
+      if (auxArray[smallestIdx] > auxArray[i]) {
         smallestIdx = i;
       }
     }
 
-    animations.push([startIdx, smallestIdx]);
-    animations.push([startIdx, smallestIdx]);
-    swap(startIdx, smallestIdx, array);
+    animations.push([]);
+    animations.push([]);
+    swap(startIdx, smallestIdx, auxArray);
     animations.push([startIdx, smallestIdx]);
     startIdx++;
   }
@@ -75,16 +79,17 @@ export function selectionSortAnimations(array) {
 }
 
 export function heapSortAnimations(array) {
+  let auxArray = array.slice();
   let animations = [];
-  buildMaxHeap(array, animations);
-  for (let endIdx = array.length - 1; endIdx > 0; endIdx--) {
+  buildMaxHeap(auxArray, animations);
+  for (let endIdx = auxArray.length - 1; endIdx > 0; endIdx--) {
     animations.push([0, endIdx]);
     animations.push([0, endIdx]);
-    swap(0, endIdx, array);
+    swap(0, endIdx, auxArray);
 
     animations.push([0, endIdx]);
 
-    siftDown(0, endIdx - 1, array, animations);
+    siftDown(0, endIdx - 1, auxArray, animations);
   }
   return animations;
 }

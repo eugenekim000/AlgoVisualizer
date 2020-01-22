@@ -6,7 +6,7 @@ import {
   selectionSortAnimations,
   heapSortAnimations
 } from '../Algorithms/SortingAlgorithms.js';
-const ANIMATION_SPEED_MS = 10;
+const ANIMATION_SPEED_MS = 5;
 const PRIMARY_COLOR = 'pink';
 const SECONDARY_COLOR = 'red';
 
@@ -95,29 +95,36 @@ export default class SortingVisualizer extends React.Component {
     this.setState({ disabled: true });
 
     const Animations = bubbleSortAnimations(this.state.array);
-    console.log(Animations);
     this.sortingAnimations(Animations);
     await this.delay(Animations.length * ANIMATION_SPEED_MS);
     this.setState({ disabled: false });
   }
 
-  insertionSort() {
+  async insertionSort() {
+    this.setState({ disabled: true });
+
     const Animations = insertionSortAnimations(this.state.array);
     this.sortingAnimations(Animations);
+    await this.delay(Animations.length * ANIMATION_SPEED_MS);
+    this.setState({ disabled: false });
   }
 
-  selectionSort() {
+  async selectionSort() {
+    this.setState({ disabled: true });
+
     const Animations = selectionSortAnimations(this.state.array);
     this.sortingAnimations(Animations);
+    await this.delay(Animations.length * ANIMATION_SPEED_MS);
+    this.setState({ disabled: false });
   }
 
-  heapSort() {
+  async heapSort() {
+    this.setState({ disabled: true });
+
     const Animations = heapSortAnimations(this.state.array);
     this.sortingAnimations(Animations);
-  }
-
-  test() {
-    this.setState({ disabled: !this.state.disabled });
+    await this.delay(Animations.length * ANIMATION_SPEED_MS);
+    this.setState({ disabled: false });
   }
 
   render() {
@@ -134,11 +141,30 @@ export default class SortingVisualizer extends React.Component {
             >
               Generate New Array
             </button>
-            <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
-            <button onClick={() => this.insertionSort()}>Insertion Sort</button>
-            <button onClick={() => this.selectionSort()}>Selection Sort</button>
-            <button onClick={() => this.heapSort()}>Heap Sort</button>
-            <button onClick={() => this.test()}>test</button>
+            <button
+              onClick={() => this.bubbleSort()}
+              disabled={this.state.disabled}
+            >
+              Bubble Sort
+            </button>
+            <button
+              onClick={() => this.insertionSort()}
+              disabled={this.state.disabled}
+            >
+              Insertion Sort
+            </button>
+            <button
+              onClick={() => this.selectionSort()}
+              disabled={this.state.disabled}
+            >
+              Selection Sort
+            </button>
+            <button
+              onClick={() => this.heapSort()}
+              disabled={this.state.disabled}
+            >
+              Heap Sort
+            </button>
           </nav>
         </div>
 
