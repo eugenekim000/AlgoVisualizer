@@ -25,7 +25,6 @@ export function insertionSortAnimations(array) {
   let animations = [];
   for (let i = 1; i < array.length; i++) {
     let j = i;
-
     if (j > 0 && array[j] < array[j - 1]) {
       while (j > 0 && array[j] < array[j - 1]) {
         animations.push([j, j - 1]);
@@ -54,12 +53,19 @@ export function selectionSortAnimations(array) {
   let startIdx = 0;
   while (startIdx < array.length - 1) {
     let smallestIdx = startIdx;
-    animations.push([startIdx, smallestIdx]);
-    animations.push([startIdx, smallestIdx]);
 
     for (let i = startIdx + 1; i < array.length; i++) {
-      if (array[smallestIdx] > array[i]) smallestIdx = i;
+      animations.push([startIdx, i]);
+      animations.push([startIdx, i]);
+      animations.push([]);
+
+      if (array[smallestIdx] > array[i]) {
+        smallestIdx = i;
+      }
     }
+
+    animations.push([startIdx, smallestIdx]);
+    animations.push([startIdx, smallestIdx]);
     swap(startIdx, smallestIdx, array);
     animations.push([startIdx, smallestIdx]);
     startIdx++;

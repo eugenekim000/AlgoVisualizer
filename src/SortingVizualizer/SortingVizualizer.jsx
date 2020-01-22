@@ -47,8 +47,21 @@ export default class SortingVisualizer extends React.Component {
       if (Animations[i] == '') {
         continue;
       }
+
+      if (Animations[i].length === 3) {
+        let [barOneIdx, barTwoIdx] = Animations[i];
+        let barOneStyle = arrayBars[barOneIdx].style;
+        let barTwoStyle = arrayBars[barTwoIdx].style;
+
+        setTimeout(() => {
+          barOneStyle.backgroundColor = SECONDARY_COLOR;
+          barTwoStyle.backgroundColor = SECONDARY_COLOR;
+        }, i * ANIMATION_SPEED_MS);
+
+        continue;
+      }
+
       let [barOneIdx, barTwoIdx] = Animations[i];
-      console.log(barOneIdx, barTwoIdx);
       let barOneStyle = arrayBars[barOneIdx].style;
       let barTwoStyle = arrayBars[barTwoIdx].style;
       const colorChange = i % 3 !== 2;
