@@ -51,7 +51,7 @@ export default class SortingVisualizer extends React.Component {
     const arrayBars = document.getElementsByClassName('array-bars');
 
     for (let i = 0; i < 100; i++) {
-      array.push(this.randomIntInterval(10, 500));
+      array.push(this.randomIntInterval(10, 400));
       if (arrayBars[i]) {
         arrayBars[i].style.backgroundColor = 'white';
       }
