@@ -1,14 +1,28 @@
+body {
+  justify-content: center;
+  align-items: center;
+  background-color: #0f0f0f;
+}
+
+h1 {
+  font-size: 300%;
+  color: white;
+  font-weight: lighter;
+}
+
 .array-bars {
   width: 4px;
-  background-color: pink;
+  background-color: white;
   display: inline-block;
   margin: 0 2px;
 }
 
 .array-container {
-  position: absolute;
-  left: 100px;
+  justify-content: center;
+  align-items: center;
   top: 50px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 nav {
@@ -18,13 +32,17 @@ nav {
 }
 
 button {
-  color: #0099cc;
+  size: 140%;
+  color: lightgrey;
   margin-left: 2px;
   margin-right: 2px;
   margin-bottom: 20px;
+  padding: 15px 25px;
+  font-size: medium;
 
-  border: 2px solid #0099cc;
-  border-radius: 6px;
+  border: 2px solid lightgrey;
+
+  border-radius: 16px;
   background: transparent;
 }
 
@@ -34,9 +52,8 @@ button:hover {
 }
 
 button:disabled {
-  background-color: grey;
+  background-color: #313131;
   color: lightgrey;
-  border: 2px solid lightgrey;
 }
 
 input {
@@ -62,7 +79,7 @@ input {
 }
 
 .row {
-  display: 100px;
+  display: 50px;
   flex-direction: row;
 }
 

@@ -7,7 +7,7 @@ import {
   heapSortAnimations
 } from '../Algorithms/SortingAlgorithms.js';
 const ANIMATION_SPEED_MS = 1;
-const PRIMARY_COLOR = 'pink';
+const PRIMARY_COLOR = 'white';
 const SECONDARY_COLOR = 'red';
 
 export default class SortingVisualizer extends React.Component {
@@ -53,7 +53,7 @@ export default class SortingVisualizer extends React.Component {
     for (let i = 0; i < 100; i++) {
       array.push(this.randomIntInterval(10, 500));
       if (arrayBars[i]) {
-        arrayBars[i].style.backgroundColor = 'pink';
+        arrayBars[i].style.backgroundColor = 'white';
       }
     }
     this.setState({ array });
@@ -109,9 +109,12 @@ export default class SortingVisualizer extends React.Component {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  async disableButtons(func) {
+  async disableButtons(func, chosen) {
     this.setState({ resetDisable: true });
     this.setState({ disabled: true });
+    if (chosen) {
+      document.getElementsByClassName(chosen)[0].style.color = 'red';
+    }
     let sort = func(this.state.array);
     this.sortingAnimations(sort);
     await this.delay(sort.length * this.state.animationSpeed);
@@ -123,19 +126,19 @@ export default class SortingVisualizer extends React.Component {
   }
 
   bubbleSort() {
-    this.disableButtons(bubbleSortAnimations);
+    this.disableButtons(bubbleSortAnimations, 'Bubble');
   }
 
   insertionSort() {
-    this.disableButtons(insertionSortAnimations);
+    this.disableButtons(insertionSortAnimations, 'Insertion');
   }
 
   selectionSort() {
-    this.disableButtons(selectionSortAnimations);
+    this.disableButtons(selectionSortAnimations, 'Selection');
   }
 
   heapSort() {
-    this.disableButtons(heapSortAnimations);
+    this.disableButtons(heapSortAnimations, 'Heap');
   }
 
   render() {
@@ -144,7 +147,7 @@ export default class SortingVisualizer extends React.Component {
     return (
       <div className='array-container'>
         <div>
-          <h1>Sorting Visualizer!</h1>
+          <h1>Sorting Visualizer.</h1>
           <form
             className='column player'
             onSubmit={number => this.handleSubmit(number)}
@@ -169,24 +172,28 @@ export default class SortingVisualizer extends React.Component {
               Generate New Array
             </button>
             <button
+              className='Bubble'
               onClick={() => this.bubbleSort()}
               disabled={this.state.disabled}
             >
               Bubble Sort
             </button>
             <button
+              className='Insertion'
               onClick={() => this.insertionSort()}
               disabled={this.state.disabled}
             >
               Insertion Sort
             </button>
             <button
+              className='Selection'
               onClick={() => this.selectionSort()}
               disabled={this.state.disabled}
             >
               Selection Sort
             </button>
             <button
+              className='Heap'
               onClick={() => this.heapSort()}
               disabled={this.state.disabled}
             >
