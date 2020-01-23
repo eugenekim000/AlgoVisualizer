@@ -17,12 +17,29 @@ export default class SortingVisualizer extends React.Component {
     this.state = {
       array: [],
       disabled: false,
-      resetDisable: false
+      resetDisable: false,
+      animationSpeed: 5
     };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     this.resetArray();
+  }
+
+  handleSubmit(number) {
+    this.setState({
+      animationSpeed: number
+    });
+  }
+
+  handleChange(event) {
+    this.setState({
+      animationSpeed: event.target.value
+    });
+    console.log(this.state.animationSpeed);
   }
 
   randomIntInterval(min, max) {
@@ -58,7 +75,7 @@ export default class SortingVisualizer extends React.Component {
         setTimeout(() => {
           barOneStyle.backgroundColor = SECONDARY_COLOR;
           barTwoStyle.backgroundColor = SECONDARY_COLOR;
-        }, i * ANIMATION_SPEED_MS);
+        }, i * this.state.animationSpeed);
 
         continue;
       }
@@ -73,7 +90,7 @@ export default class SortingVisualizer extends React.Component {
         setTimeout(() => {
           barOneStyle.backgroundColor = color;
           barTwoStyle.backgroundColor = color;
-        }, i * ANIMATION_SPEED_MS);
+        }, i * this.state.animationSpeed);
       } else {
         setTimeout(() => {
           if (i % 3 !== 1) {
@@ -83,7 +100,7 @@ export default class SortingVisualizer extends React.Component {
             arrayBars[barOneIdxSwap].style.height = barTwoStyle;
             arrayBars[barTwoIdxSwap].style.height = barOneStyle;
           }
-        }, i * ANIMATION_SPEED_MS);
+        }, i * this.state.animationSpeed);
       }
     }
   }
@@ -97,8 +114,12 @@ export default class SortingVisualizer extends React.Component {
     this.setState({ disabled: true });
     let sort = func(this.state.array);
     this.sortingAnimations(sort);
-    await this.delay(sort.length * ANIMATION_SPEED_MS);
+    await this.delay(sort.length * this.state.animationSpeed);
     this.setState({ resetDisable: false });
+    for (let i = 0; i < this.state.array.length; i++) {
+      document.getElementsByClassName('array-bars')[i].style.backgroundColor =
+        'deepskyblue';
+    }
   }
 
   bubbleSort() {
@@ -124,6 +145,22 @@ export default class SortingVisualizer extends React.Component {
       <div className='array-container'>
         <div>
           <h1>Sorting Visualizer!</h1>
+          <form
+            className='column player'
+            onSubmit={number => this.handleSubmit(number)}
+          >
+            <div className='row user-inputs'>
+              <input
+                type='number'
+                id='animationSpeed'
+                className='input-light'
+                placeholder='Enter Speed in Ms!'
+                autoComplete='off'
+                value={this.state.animationSpeed}
+                onChange={this.handleChange}
+              />
+            </div>
+          </form>
           <nav>
             <button
               onClick={() => this.resetArray()}
