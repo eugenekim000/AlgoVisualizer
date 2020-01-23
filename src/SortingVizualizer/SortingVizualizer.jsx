@@ -122,6 +122,9 @@ export default class SortingVisualizer extends React.Component {
     for (let i = 0; i < this.state.array.length; i++) {
       document.getElementsByClassName('array-bars')[i].style.backgroundColor =
         'deepskyblue';
+      if (chosen) {
+        document.getElementsByClassName(chosen)[0].style.color = 'lightgrey';
+      }
     }
   }
 
