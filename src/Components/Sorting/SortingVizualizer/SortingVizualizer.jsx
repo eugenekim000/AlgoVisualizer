@@ -5,7 +5,7 @@ import {
   insertionSortAnimations,
   selectionSortAnimations,
   heapSortAnimations
-} from '../Algorithms/SortingAlgorithms.js';
+} from '../../../Algorithms/SortingAlgorithms.js';
 const ANIMATION_SPEED_MS = 1;
 const PRIMARY_COLOR = 'white';
 const SECONDARY_COLOR = 'red';
