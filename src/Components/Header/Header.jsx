@@ -4,8 +4,12 @@ import { Link } from 'react-router-dom';
 function Header() {
   return (
     <div style={{ color: 'white' }}>
-      <Link to='/'>Sorting</Link>
-      <Link to='/pathfinding'>Pathfinding</Link>
+      <Link to='/'>
+        <button>Sorting</button>
+      </Link>
+      <Link to='/pathfinding'>
+        <button>Pathfinding</button>
+      </Link>
     </div>
   );
 }
