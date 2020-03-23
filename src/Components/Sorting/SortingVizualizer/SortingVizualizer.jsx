@@ -39,7 +39,6 @@ export default class SortingVisualizer extends React.Component {
     this.setState({
       animationSpeed: event.target.value
     });
-    console.log(this.state.animationSpeed);
   }
 
   randomIntInterval(min, max) {
@@ -150,7 +149,6 @@ export default class SortingVisualizer extends React.Component {
     return (
       <div className='array-container'>
         <div>
-          <h1>Sorting Visualizer.</h1>
           <form
             className='column player'
             onSubmit={number => this.handleSubmit(number)}

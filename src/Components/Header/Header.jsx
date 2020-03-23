@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Header() {
+function Header({ running }) {
   return (
     <div style={{ color: 'white' }}>
       <Link to='/'>
-        <button>Sorting</button>
+        <button disabled={running}>Sorting</button>
       </Link>
       <Link to='/pathfinding'>
-        <button>Pathfinding</button>
+        <button disabled={running}>Pathfinding</button>
       </Link>
     </div>
   );
