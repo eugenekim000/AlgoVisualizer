@@ -1,5 +1,5 @@
 ## Algorithm Vizualizer
-https://eugenekim000.github.io/SortingVisualizer/
+https://eugenekim000.github.io/AlgoVisualizer/
 
 A simple vizualizer for several sorting and pathfinding algorithms.
 
