@@ -157,10 +157,7 @@ export default class PathfindingVisualizer extends Component {
         >
           Dijkstra's Algorithm
         </button>
-        <button
-          onClick={() => this.visualizeDijkstra()}
-          disabled={this.props.running}
-        >
+        <button onClick={() => this.visualizeDijkstra()} disabled={true}>
           A* Algorithm
         </button>
         <button
@@ -174,7 +171,7 @@ export default class PathfindingVisualizer extends Component {
           onClick={() => this.visualizeAlgo(bfs, shortestPathBfs)}
           disabled={this.props.running}
         >
-          Breath first search
+          Breadth first search
         </button>
         <div className='grid'>
           {grid.map((row, rowIdx) => {
