@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SortingVisualizer from './Components/Sorting/SortingVizualizer/SortingVizualizer.jsx';
 import Pathfinding from './Components/Pathfinding/Pathfinding';
 import Header from './Components/Header/Header.jsx';
@@ -16,8 +16,6 @@ function App() {
   const hasFinished = () => {
     setRunning(false);
   };
-  //<Route exact path="/props-through-render"
-  //render={(props) => <PropsPage {...props} title={`Props through render`} />} />
 
   return (
     <div className='App'>
@@ -28,7 +26,7 @@ function App() {
           </div>
           <div className='text'>
             {' '}
-            Click and hold to create walls on the grid
+            Click and hold to create walls on the grid.
           </div>
           <Route
             path='/'
