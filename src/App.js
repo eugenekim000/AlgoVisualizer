@@ -3,7 +3,7 @@ import SortingVisualizer from './Components/Sorting/SortingVizualizer/SortingViz
 import Pathfinding from './Components/Pathfinding/Pathfinding';
 import Header from './Components/Header/Header.jsx';
 import './App.css';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
 import history from './history';
 
 function App() {
@@ -23,7 +23,13 @@ function App() {
     <div className='App'>
       <div>
         <Router history={history}>
-          <Header running={running} />
+          <div className='header'>
+            <Header running={running} />
+          </div>
+          <div className='text'>
+            {' '}
+            Click and hold to create walls on the grid
+          </div>
           <Route
             path='/'
             exact

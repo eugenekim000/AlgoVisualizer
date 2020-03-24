@@ -19,13 +19,14 @@ export default class PathfindingVisualizer extends Component {
     super();
     this.state = {
       grid: [],
+      gridWalls: [],
       mouseIsPressed: false
     };
   }
 
   componentDidMount() {
     const grid = getInitialGrid();
-    this.setState({ grid });
+    this.setState({ grid: grid.slice(), gridWalls: grid.slice() });
   }
 
   animateAlgo(visitedNodesInOrder, nodesInShortestPathOrder) {
@@ -56,29 +57,65 @@ export default class PathfindingVisualizer extends Component {
     this.props.hasFinished();
   }
 
-  visualizeAlgo(algo, shortestPath) {
+  async visualizeAlgo(algo, shortestPath) {
     this.props.setRunning();
+    this.resetBoardWithWalls();
     const { grid } = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     const visitedNodesInOrder = algo(grid, startNode, finishNode);
     const nodesInShortestPathOrder = shortestPath(finishNode);
-    this.animateAlgo(visitedNodesInOrder, nodesInShortestPathOrder);
+    await this.animateAlgo(visitedNodesInOrder, nodesInShortestPathOrder);
+    getInitialGrid();
   }
 
   handleMouseDown(row, col) {
     const newGrid = getNewGridWithWallToggled(this.state.grid, row, col);
-    this.setState({ grid: newGrid, mouseIsPressed: true });
+    this.setState({ grid: newGrid, mouseIsPressed: true, gridWalls: newGrid });
   }
 
   handleMouseEnter(row, col) {
     if (!this.state.mouseIsPressed) return;
     const newGrid = getNewGridWithWallToggled(this.state.grid, row, col);
-    this.setState({ grid: newGrid });
+    this.setState({ grid: newGrid, gridWalls: newGrid });
   }
 
   handleMouseUp() {
     this.setState({ mouseIsPressed: false });
+  }
+
+  resetBoardWithWalls() {
+    const currentGrid = this.state.grid;
+    const grid = [];
+    for (let row = 0; row < ROW_SIZE; row++) {
+      const currentRow = [];
+      for (let col = 0; col < COL_SIZE; col++) {
+        const node = currentGrid[row][col];
+        const newNode = createNode(col, row);
+
+        let hasWall = null;
+        if (node.isWall) {
+          hasWall = 'node-wall';
+          newNode.isWall = !newNode.isWall;
+        }
+        document.getElementById(
+          `node-${row}-${col}`
+        ).className = `node null ${hasWall}`;
+
+        currentRow.push(newNode);
+      }
+      grid.push(currentRow);
+    }
+
+    document.getElementById(
+      `node-${START_NODE_ROW}-${START_NODE_COL}`
+    ).className = 'node node-start';
+
+    document.getElementById(
+      `node-${FINISH_NODE_ROW}-${FINISH_NODE_COL}`
+    ).className = 'node node-finish';
+
+    this.setState({ grid });
   }
 
   clearBoard() {
@@ -111,6 +148,7 @@ export default class PathfindingVisualizer extends Component {
         <button onClick={() => this.clearBoard()} disabled={this.props.running}>
           Clear Board
         </button>
+
         <button
           onClick={() =>
             this.visualizeAlgo(dijkstra, shortestPathOrderDijkstras)
@@ -127,8 +165,8 @@ export default class PathfindingVisualizer extends Component {
         </button>
         <button
           onClick={() => this.visualizeAlgo(dfs, shortestPathDfs)}
-          //disabled={this.props.running}
-          disabled={true}
+          disabled={this.props.running}
+          //disabled={true}
         >
           Depth first search
         </button>

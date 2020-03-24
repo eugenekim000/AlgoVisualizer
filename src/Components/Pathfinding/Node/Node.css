@@ -36,7 +36,7 @@
   }
 
   75% {
-    transform: scale(1.2);
+    transform: scale(1.1);
     background-color: rgba(0, 217, 159, 0.75);
   }
 
@@ -47,9 +47,9 @@
 }
 
 .node-wall {
-  background-color: rgb(12, 53, 71);
+  background-color: white;
   animation-name: mouseClicked;
-  animation-duration: 0.3s;
+  animation-duration: 0.75s;
   animation-timing-function: ease-out;
   animation-delay: 0;
   animation-direction: alternate;
@@ -64,7 +64,7 @@
   }
 
   50% {
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 
   100% {
