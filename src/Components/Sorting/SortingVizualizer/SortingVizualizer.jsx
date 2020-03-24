@@ -57,6 +57,7 @@ export default class SortingVisualizer extends React.Component {
     }
     this.setState({ array });
     this.setState({ disabled: false });
+    this.props.hasFinished();
   }
 
   sortingAnimations(Animations) {
@@ -109,6 +110,7 @@ export default class SortingVisualizer extends React.Component {
   }
 
   async disableButtons(func, chosen) {
+    this.props.setRunning();
     this.setState({ resetDisable: true });
     this.setState({ disabled: true });
     if (chosen) {
@@ -118,6 +120,8 @@ export default class SortingVisualizer extends React.Component {
     this.sortingAnimations(sort);
     await this.delay(sort.length * this.state.animationSpeed);
     this.setState({ resetDisable: false });
+    this.props.hasFinished();
+
     for (let i = 0; i < this.state.array.length; i++) {
       document.getElementsByClassName('array-bars')[i].style.backgroundColor =
         'deepskyblue';
@@ -158,9 +162,8 @@ export default class SortingVisualizer extends React.Component {
                 type='number'
                 id='animationSpeed'
                 className='input-light'
-                placeholder='Enter Speed in Ms!'
+                placeholder='Enter Speed in Ms'
                 autoComplete='off'
-                value={this.state.animationSpeed}
                 onChange={this.handleChange}
               />
             </div>

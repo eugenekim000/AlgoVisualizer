@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import Node from './Node/Node';
 import {
   dijkstra,
-  getNodesInShortestPathOrder
+  shortestPathOrderDijkstras
 } from '../../Algorithms/Pathfinding/dijkstras.js';
+import { dfs, shortestPathDfs } from '../../Algorithms/Pathfinding/dfs.js';
+import { bfs, shortestPathBfs } from '../../Algorithms/Pathfinding/bfs.js';
 
 const START_NODE_ROW = 7;
 const START_NODE_COL = 7;
 const FINISH_NODE_ROW = 7;
-const FINISH_NODE_COL = 35;
+const FINISH_NODE_COL = 35; //35
 const ROW_SIZE = 15;
 const COL_SIZE = 40;
 
@@ -26,7 +28,7 @@ export default class PathfindingVisualizer extends Component {
     this.setState({ grid });
   }
 
-  animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
+  animateAlgo(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
       if (i === visitedNodesInOrder.length) {
         setTimeout(() => {
@@ -54,14 +56,14 @@ export default class PathfindingVisualizer extends Component {
     this.props.hasFinished();
   }
 
-  visualizeDijkstra() {
-    this.props.isRunning();
+  visualizeAlgo(algo, shortestPath) {
+    this.props.setRunning();
     const { grid } = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-    const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
-    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+    const visitedNodesInOrder = algo(grid, startNode, finishNode);
+    const nodesInShortestPathOrder = shortestPath(finishNode);
+    this.animateAlgo(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
   handleMouseDown(row, col) {
@@ -85,6 +87,7 @@ export default class PathfindingVisualizer extends Component {
       const currentRow = [];
       for (let col = 0; col < COL_SIZE; col++) {
         document.getElementById(`node-${row}-${col}`).className = 'node null';
+        currentRow.push(createNode(col, row));
       }
       grid.push(currentRow);
     }
@@ -97,7 +100,7 @@ export default class PathfindingVisualizer extends Component {
       `node-${FINISH_NODE_ROW}-${FINISH_NODE_COL}`
     ).className = 'node node-finish';
 
-    return grid;
+    this.setState({ grid });
   }
 
   render() {
@@ -105,15 +108,34 @@ export default class PathfindingVisualizer extends Component {
 
     return (
       <>
-        <button onClick={() => this.clearBoard()}>Clear Board</button>
-        <button onClick={() => this.visualizeDijkstra()}>
+        <button onClick={() => this.clearBoard()} disabled={this.props.running}>
+          Clear Board
+        </button>
+        <button
+          onClick={() =>
+            this.visualizeAlgo(dijkstra, shortestPathOrderDijkstras)
+          }
+          disabled={this.props.running}
+        >
           Dijkstra's Algorithm
         </button>
-        <button onClick={() => this.visualizeDijkstra()}>A* Algorithm</button>
-        <button onClick={() => this.visualizeDijkstra()}>
+        <button
+          onClick={() => this.visualizeDijkstra()}
+          disabled={this.props.running}
+        >
+          A* Algorithm
+        </button>
+        <button
+          onClick={() => this.visualizeAlgo(dfs, shortestPathDfs)}
+          //disabled={this.props.running}
+          disabled={true}
+        >
           Depth first search
         </button>
-        <button onClick={() => this.visualizeDijkstra()}>
+        <button
+          onClick={() => this.visualizeAlgo(bfs, shortestPathBfs)}
+          disabled={this.props.running}
+        >
           Breath first search
         </button>
         <div className='grid'>

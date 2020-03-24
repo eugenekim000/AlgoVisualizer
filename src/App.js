@@ -29,7 +29,7 @@ function App() {
             exact
             render={() => (
               <SortingVisualizer
-                isRunning={isRunning}
+                setRunning={isRunning}
                 hasFinished={hasFinished}
               />
             )}
@@ -38,7 +38,11 @@ function App() {
             path='/pathfinding'
             exact
             render={() => (
-              <Pathfinding isRunning={isRunning} hasFinished={hasFinished} />
+              <Pathfinding
+                setRunning={isRunning}
+                hasFinished={hasFinished}
+                running={running}
+              />
             )}
           />
         </Router>
