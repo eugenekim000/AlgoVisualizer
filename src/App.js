@@ -24,10 +24,7 @@ function App() {
           <div className='header'>
             <Header running={running} />
           </div>
-          <div className='text'>
-            {' '}
-            Click and hold to create walls on the grid.
-          </div>
+
           <Route
             path='/'
             exact
@@ -42,11 +39,16 @@ function App() {
             path='/pathfinding'
             exact
             render={() => (
-              <Pathfinding
-                setRunning={isRunning}
-                hasFinished={hasFinished}
-                running={running}
-              />
+              <div>
+                <div className='text'>
+                  Click and hold to create walls on the grid.
+                </div>
+                <Pathfinding
+                  setRunning={isRunning}
+                  hasFinished={hasFinished}
+                  running={running}
+                />
+              </div>
             )}
           />
         </Router>

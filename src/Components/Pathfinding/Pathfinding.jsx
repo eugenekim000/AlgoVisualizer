@@ -6,6 +6,10 @@ import {
 } from '../../Algorithms/Pathfinding/dijkstras.js';
 import { dfs, shortestPathDfs } from '../../Algorithms/Pathfinding/dfs.js';
 import { bfs, shortestPathBfs } from '../../Algorithms/Pathfinding/bfs.js';
+import {
+  aStar,
+  shortestPathaStar
+} from '../../Algorithms/Pathfinding/aStar.js';
 
 const START_NODE_ROW = 7;
 const START_NODE_COL = 7;
@@ -157,13 +161,15 @@ export default class PathfindingVisualizer extends Component {
         >
           Dijkstra's Algorithm
         </button>
-        <button onClick={() => this.visualizeDijkstra()} disabled={true}>
+        <button
+          onClick={() => this.visualizeAlgo(aStar, shortestPathaStar)}
+          disabled={this.props.running}
+        >
           A* Algorithm
         </button>
         <button
           onClick={() => this.visualizeAlgo(dfs, shortestPathDfs)}
           disabled={this.props.running}
-          //disabled={true}
         >
           Depth first search
         </button>
@@ -225,7 +231,8 @@ const createNode = (col, row) => {
     distance: Infinity,
     isVisited: false,
     isWall: false,
-    previousNode: null
+    previousNode: null,
+    endDistance: Infinity
   };
 };
 const getNewGridWithWallToggled = (grid, row, col) => {
