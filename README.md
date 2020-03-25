@@ -10,6 +10,7 @@ A simple vizualizer for several sorting and pathfinding algorithms.
 ```Selection Sort```
 ```Heap Sort```
 ```Dijkstras```
+```A*```
 ```Depth first search```
 ```breadth first search```
 
@@ -18,7 +19,6 @@ A simple vizualizer for several sorting and pathfinding algorithms.
 
 ```Merge Sort```
 ```Quick Sort```
-```A*```
 
 
 ### Acknowledgments
