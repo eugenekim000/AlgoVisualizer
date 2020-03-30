@@ -1,6 +1,6 @@
 {
   "name": "sorting",
-  "homepage": "https://eugenekim000.github.io/SortingVisualizer/",
+  "homepage": "https://eugenekim000.github.io/AlgoVisualizer",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
